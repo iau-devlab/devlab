@@ -302,5 +302,36 @@
         window.addEventListener("scroll", reveal);
         reveal();
     </script>
+    <script>
+    const text = "واقعیتی که در کلاس‌های درس نخواهیم شنید!!!";
+    let i = 0;
+    let isDeleting = false;
+    const speed = 100; 
+    const waitTime = 2000; 
+
+    function typeWriter() {
+        const element = document.getElementById("typewriter");
+        if (!element) return; // اطمینان از وجود المان
+        
+        if (!isDeleting && i < text.length) {
+            element.innerHTML = text.substring(0, i + 1);
+            i++;
+            setTimeout(typeWriter, speed);
+        } else if (isDeleting && i > 0) {
+            element.innerHTML = text.substring(0, i - 1);
+            i--;
+            setTimeout(typeWriter, speed / 2);
+        } else if (i === text.length) {
+            isDeleting = true;
+            setTimeout(typeWriter, waitTime);
+        } else if (i === 0 && isDeleting) {
+            isDeleting = false;
+            setTimeout(typeWriter, speed);
+        }
+    }
+
+    // این خط باعث می‌شود وقتی صفحه لود شد، تایپ شروع شود
+    document.addEventListener("DOMContentLoaded", typeWriter);
+</script>
 </body>
 </html>

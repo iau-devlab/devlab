@@ -3,224 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نقشه راه مهندسی واقعی | فراتر از کلاس درس</title>
+    <title>DevLab | سیستم‌عامل مهندسی</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Vazirmatn', sans-serif; background-color: #0f172a; color: #f1f5f9; }
-        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+        body { font-family: 'Vazirmatn', sans-serif; background-color: #030712; color: #f1f5f9; scroll-behavior: smooth; }
+        .glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(56, 189, 248, 0.1); }
+        .neon-border { border: 1px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.15); }
         .gradient-text { background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .border-glow { border: 1px solid #38bdf8; box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); }
-        .card-hover:hover { transform: translateY(-5px); transition: all 0.3s ease; border-color: #38bdf8; }
+        
+        /* انیمیشن برای کارت‌ها */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        /* استایل ترمینال */
+        .terminal-header { background: #1e293b; border-radius: 8px 8px 0 0; padding: 8px 15px; display: flex; gap: 6px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
     </style>
 </head>
-<body class="leading-relaxed">
+<body class="overflow-x-hidden">
 
-    <header class="fixed w-full z-50 glass border-b border-white/10 px-6 py-4">
+    <nav class="fixed w-full z-50 glass border-b border-white/5 px-6 py-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold gradient-text tracking-tighter">ENGINEERING_OS v1.0</h1>
-            <nav class="hidden md:flex gap-8 text-sm font-light">
-                <a href="#philosophy" class="hover:text-blue-400 transition">فلسفه سیستم</a>
-                <a href="#architecture" class="hover:text-blue-400 transition">معماری پروژه</a>
-                <a href="#folders" class="hover:text-blue-400 transition">ساختار پوشه‌ها</a>
-                <a href="#laws" class="hover:text-blue-400 transition">قوانین ۷‌گانه</a>
-            </nav>
+            <div class="flex items-center gap-2">
+                <div class="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+                <span class="font-black text-xl tracking-tighter uppercase">DevLab <span class="text-blue-400">OS</span></span>
+            </div>
+            <div class="hidden md:flex gap-6 text-sm">
+                <a href="#philosophy" class="hover:text-blue-400 transition">فلسفه</a>
+                <a href="#industry" class="text-blue-400 font-bold border-b border-blue-400">مستندات صنعت</a>
+                <a href="#folders" class="hover:text-blue-400 transition">ساختار</a>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <section class="pt-32 pb-20 px-6">
-        <div class="max-w-5xl mx-auto text-center">
-            <span class="px-4 py-1 rounded-full border border-blue-500/30 text-blue-400 text-xs mb-6 inline-block">واقعیتی که در کلاس‌های درس نخواهیم شنید</span>
-            <h2 class="text-4xl md:text-6xl font-black mb-8 leading-tight">ما یاد می‌گیریم امتحان بدهیم،<br> اما یاد نمی‌گیریم <span class="gradient-text">«مهندس»</span> باشیم!</h2>
-            <p class="text-gray-400 text-lg max-w-3xl mx-auto mb-10 font-light">
-                بازار کار به دنبال جزوه‌های ما نیست؛ آن‌ها به دنبال توانایی حل مسئله، کار تیمی و مستندسازی در استانداردهای جهانی هستند.
+    <section class="min-h-screen flex flex-col justify-center items-center px-6 pt-20">
+        <div class="text-center">
+            <h1 id="typewriter" class="text-3xl md:text-5xl font-black mb-6 min-h-[60px]"></h1>
+            <p class="text-gray-400 max-w-2xl mx-auto mb-10 leading-loose">
+                ما در اینجا یاد می‌گیریم که چگونه از سطح یک اپراتور به یک تحلیل‌گر و مهندس واقعی در تراز جهانی تبدیل شویم.
             </p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="#laws" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-bold transition">شروع فرآیند تبدیل</a>
-                <a href="#folders" class="glass px-8 py-3 rounded-lg font-bold hover:bg-white/5 transition">مشاهده ساختار فایل‌ها</a>
+            <div class="flex gap-4 justify-center">
+                <a href="#industry" class="bg-blue-600 px-8 py-3 rounded-full font-bold hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transition">مشاهده خروجی‌های صنعتی</a>
             </div>
         </div>
     </section>
 
-    <section id="philosophy" class="py-20 px-6 bg-slate-900/50">
+    <section id="industry" class="py-24 px-6 relative bg-slate-900/30">
         <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h3 class="text-3xl font-bold mb-6 italic">چرا این فضا ایجاد شد؟</h3>
-                    <ul class="space-y-4">
-                        <li class="flex gap-3 items-start text-gray-300">
-                            <i class="fas fa-circle-xmark text-red-500 mt-1"></i>
-                            عدم مدیریت پروژه‌ها در استانداردهای صنعتی مثل GitHub.
-                        </li>
-                        <li class="flex gap-3 items-start text-gray-300">
-                            <i class="fas fa-circle-xmark text-red-500 mt-1"></i>
-                            بی‌ارزش شمردن گزارش‌های فنی در کنار کدنویسی.
-                        </li>
-                        <li class="flex gap-3 items-start text-gray-300">
-                            <i class="fas fa-circle-xmark text-red-500 mt-1"></i>
-                            ماندن در سطح یک اپراتور ساده به جای تحلیل‌گر.
-                        </li>
-                    </ul>
-                </div>
-                <div class="glass p-8 rounded-2xl border-glow">
-                    <h3 class="text-2xl font-bold mb-4 text-blue-400">چشم‌انداز سیستم</h3>
-                    <p class="font-light leading-loose text-gray-200">
-                        من این پروژه را نه فقط به عنوان یک مخزن کد، بلکه به عنوان یک <strong>«سیستم‌عامل عملیاتی»</strong> برای مدیریت انجمن علمی طراحی کرده‌ام. هدف من ساخت پلی است که دانشجو را از فضای تئوری جدا کرده و به سمت استانداردهای صنعت بفرستد. این ریپازیتوری یک <strong>شبیه‌ساز صنعت</strong> است.
-                    </p>
-                </div>
+            <div class="mb-16 reveal">
+                <h2 class="text-3xl font-black mb-4 flex items-center gap-3">
+                    <i class="fas fa-handshake text-blue-400"></i>
+                    مستندات و گزارش‌های صنعتی (Industry Partners)
+                </h2>
+                <p class="text-gray-400 font-light">گزارش‌های عملکرد، بازدیدهای عملیاتی و پروژه‌های مشترک با صنعت در این بخش مستند شده‌اند.</p>
             </div>
-        </div>
-    </section>
 
-    <section id="architecture" class="py-20 px-6">
-        <div class="max-w-7xl mx-auto">
-            <h3 class="text-center text-3xl font-black mb-16 uppercase tracking-widest">کالبدشکافی بخش‌های سیستم (The Architecture)</h3>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="glass p-6 rounded-xl card-hover">
-                    <i class="fas fa-building text-3xl text-blue-400 mb-4"></i>
-                    <h4 class="text-xl font-bold mb-2">مخزن (Repository)</h4>
-                    <p class="text-sm text-gray-400 font-light">حکم فضای ابری یک شرکت بزرگ؛ تمام دارایی‌های فکری و مستندات اینجا ذخیره می‌شود.</p>
-                </div>
-                <div class="glass p-6 rounded-xl card-hover">
-                    <i class="fas fa-microchip text-3xl text-purple-400 mb-4"></i>
-                    <h4 class="text-xl font-bold mb-2">بورد عملیاتی (The Engine)</h4>
-                    <p class="text-sm text-gray-400 font-light">مدیریت خودکار با Workflowهای هوشمند؛ حذف پیگیری دستی و نظم خودکار گزارش‌ها.</p>
-                </div>
-                <div class="glass p-6 rounded-xl card-hover border-blue-500/50 border">
-                    <i class="fas fa-filter text-3xl text-red-400 mb-4"></i>
-                    <h4 class="text-xl font-bold mb-2 text-red-400">قانون ۳ چالش</h4>
-                    <p class="text-sm text-gray-400 font-light">فیلتر ضد کپی‌کاری؛ هر دانشجو باید مسیر حل ۳ چالش فنی واقعی خود را مستند کند.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="folders" class="py-20 px-6 bg-slate-900/50">
-        <div class="max-w-5xl mx-auto">
-            <h3 class="text-2xl font-bold mb-10 flex items-center gap-3">
-                <i class="fas fa-folder-open text-yellow-500"></i>
-                📂 ساختار پوشه‌های پروژه
-            </h3>
-            <div class="overflow-x-auto glass rounded-xl">
-                <table class="w-full text-right border-collapse">
-                    <thead class="bg-white/5 text-blue-400 uppercase text-xs">
-                        <tr>
-                            <th class="p-4">نام پوشه</th>
-                            <th class="p-4">توضیحات عملکردی</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-sm font-light">
-                        <tr class="border-b border-white/5 hover:bg-white/5">
-                            <td class="p-4 font-mono">Research-Archive</td>
-                            <td class="p-4 text-gray-400">تحقیق اولیه اجباری برای ورود به تیم‌ها.</td>
-                        </tr>
-                        <tr class="border-b border-white/5 hover:bg-white/5">
-                            <td class="p-4 font-mono">Teams</td>
-                            <td class="p-4 text-gray-400">معرفی تیم‌ها و اعضای فعال.</td>
-                        </tr>
-                        <tr class="border-b border-white/5 hover:bg-white/5">
-                            <td class="p-4 font-mono">Industry-Partners</td>
-                            <td class="p-4 text-gray-400">مستندات همکاری‌های صنعتی و گزارش عملکرد.</td>
-                        </tr>
-                        <tr class="border-b border-white/5 hover:bg-white/5">
-                            <td class="p-4 font-mono">Templates</td>
-                            <td class="p-4 text-gray-400">فرم‌های خام جهت یکسان‌سازی گزارش‌نویسی.</td>
-                        </tr>
-                        <tr class="border-b border-white/5 hover:bg-white/5">
-                            <td class="p-4 font-mono">Core-Management</td>
-                            <td class="p-4 text-gray-400">اسناد مدیریتی، نقشه‌راه و قوانین اصلی.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <section id="laws" class="py-20 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h3 class="text-4xl font-black mb-4 uppercase">The 7 Framework Sheets</h3>
-                <div class="h-1 w-24 bg-blue-500 mx-auto"></div>
-            </div>
-            
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="p-8 border border-white/10 rounded-2xl relative overflow-hidden group">
-                    <div class="absolute -right-4 -top-4 text-7xl font-black text-white/5 group-hover:text-blue-500/10 transition">01</div>
-                    <h5 class="text-blue-400 font-bold mb-3 italic underline">برگه ۱: چک‌لیست اجرایی</h5>
-                    <p class="text-sm font-light text-gray-400 mb-4 text-justify leading-relaxed">ایجاد تقویم زمانی دقیق؛ از سمینار معارفه در هفته اول تا تور صنعتی و گزارش نهایی در پایان ترم.</p>
+                <div class="glass rounded-2xl overflow-hidden reveal neon-border">
+                    <div class="terminal-header">
+                        <div class="dot bg-red-500"></div>
+                        <div class="dot bg-yellow-500"></div>
+                        <div class="dot bg-green-500"></div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs text-blue-400 font-mono">REPORT #001</span>
+                        <h4 class="text-xl font-bold mt-2 mb-4">گزارش بازدید از دیتاسنتر</h4>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-6">تحلیل زیرساخت شبکه و سیستم‌های سرمایشی در مقیاس صنعتی.</p>
+                        <a href="https://github.com/iau-devlab/devlab/tree/main/Industry-Partners" class="text-sm border border-white/20 px-4 py-2 rounded-lg hover:bg-white/10 transition inline-block">مشاهده داکیومنت</a>
+                    </div>
                 </div>
-                <div class="p-8 border border-white/10 rounded-2xl relative overflow-hidden group">
-                    <div class="absolute -right-4 -top-4 text-7xl font-black text-white/5 group-hover:text-blue-500/10 transition">02</div>
-                    <h5 class="text-blue-400 font-bold mb-3 italic underline">برگه ۲: جذب و تحقیق شغلی</h5>
-                    <p class="text-sm font-light text-gray-400 mb-4 text-justify leading-relaxed">جلوگیری از انتخاب هیجانی؛ تحقیق در یوتیوب، تحلیل بازار کار و مصاحبه الزامی با متخصص در لینکدین.</p>
+
+                <div class="glass rounded-2xl overflow-hidden reveal">
+                    <div class="terminal-header">
+                        <div class="dot bg-red-500"></div><div class="dot bg-yellow-500"></div><div class="dot bg-green-500"></div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs text-purple-400 font-mono">PROJECT #042</span>
+                        <h4 class="text-xl font-bold mt-2 mb-4">پروتکل همکاری فنی</h4>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-6">مستندات مربوط به استانداردهای کدنویسی در شرکت‌های همکار.</p>
+                        <a href="#" class="text-sm border border-white/20 px-4 py-2 rounded-lg hover:bg-white/10 transition inline-block">بزودی...</a>
+                    </div>
                 </div>
-                <div class="p-8 border border-white/10 rounded-2xl relative overflow-hidden group">
-                    <div class="absolute -right-4 -top-4 text-7xl font-black text-white/5 group-hover:text-blue-500/10 transition">03</div>
-                    <h5 class="text-blue-400 font-bold mb-3 italic underline">برگه ۳: مثلث مهارت‌های پایه</h5>
-                    <p class="text-sm font-light text-gray-400 mb-4 text-justify leading-relaxed">تسلط بر A+، شبکه و ویندوز؛ ارتقا از تکنیسین به مهندس با درک "چرایی" کارکرد سیستم‌ها.</p>
-                </div>
-                <div class="p-8 border border-white/10 rounded-2xl relative overflow-hidden group">
-                    <div class="absolute -right-4 -top-4 text-7xl font-black text-white/5 group-hover:text-blue-500/10 transition">04</div>
-                    <h5 class="text-blue-400 font-bold mb-3 italic underline">برگه ۴: پروتکل منابع و اساتید</h5>
-                    <p class="text-sm font-light text-gray-400 mb-4 text-justify leading-relaxed">فیلتر کیفیت؛ استفاده از آموزش‌های آفلاین معتبر و اساتیدی که رزومه فعال در صنعت دارند.</p>
-                </div>
-                <div class="p-8 border border-white/10 rounded-2xl relative overflow-hidden group">
-                    <div class="absolute -right-4 -top-4 text-7xl font-black text-white/5 group-hover:text-blue-500/10 transition">05</div>
-                    <h5 class="text-blue-400 font-bold mb-3 italic underline">برگه ۵: جلسات حضوری و Soft Skills</h5>
-                    <p class="text-sm font-light text-gray-400 mb-4 text-justify leading-relaxed">فرهنگ Stand-up؛ ارائه ۵ دقیقه‌ای آموخته‌ها برای کشتن ترس از قضاوت و آماده‌سازی برای مصاحبه.</p>
-                </div>
-                <div class="p-8 border border-white/10 rounded-2xl relative overflow-hidden group border-blue-500/40">
-                    <div class="absolute -right-4 -top-4 text-7xl font-black text-white/5 group-hover:text-blue-500/10 transition">06</div>
-                    <h5 class="text-blue-400 font-bold mb-3 italic underline font-black">برگه ۶: مستندسازی و برندینگ</h5>
-                    <p class="text-sm font-light text-gray-400 mb-4 text-justify leading-relaxed">گیت‌هاب محل تولید و لینکدین محل نمایش؛ تبدیل گزارش‌های تحلیلی به آهنربای جذب کارفرما.</p>
+                
+                <div class="glass rounded-2xl overflow-hidden reveal">
+                    <div class="terminal-header">
+                        <div class="dot bg-red-500"></div><div class="dot bg-yellow-500"></div><div class="dot bg-green-500"></div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs text-green-400 font-mono">KPI #007</span>
+                        <h4 class="text-xl font-bold mt-2 mb-4">گزارش عملکرد ماهانه</h4>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-6">ارزیابی رشد دانشجوها بر اساس استانداردهای بازار کار.</p>
+                        <a href="#" class="text-sm border border-white/20 px-4 py-2 rounded-lg hover:bg-white/10 transition inline-block">بزودی...</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-20 px-6 bg-blue-600/10 border-y border-blue-500/20">
-        <div class="max-w-4xl mx-auto">
-            <h3 class="text-2xl font-bold mb-8 text-center uppercase tracking-widest">برگه ۷: سیستم امتیازدهی و سنجش کیفیت (KPIs)</h3>
-            <div class="space-y-4">
-                <div class="flex justify-between items-center glass p-4 rounded-lg">
-                    <span>قانون ۳ چالش اختصاصی (اثبات کار واقعی)</span>
-                    <span class="text-blue-400 font-bold">۴ از ۱۰</span>
-                </div>
-                <div class="flex justify-between items-center glass p-4 rounded-lg">
-                    <span>شفافیت برای نابلد (قدرت انتقال دانش)</span>
-                    <span class="text-blue-400 font-bold">۳ از ۱۰</span>
-                </div>
-                <div class="flex justify-between items-center glass p-4 rounded-lg">
-                    <span>گزارش تصمیم و چرایی (تفکر مهندسی)</span>
-                    <span class="text-blue-400 font-bold">۲ از ۱۰</span>
-                </div>
-                <div class="flex justify-between items-center glass p-4 rounded-lg">
-                    <span>مستندات بصری و نظم (دیاگرام و فرمت‌بندی)</span>
-                    <span class="text-blue-400 font-bold">۱ از ۱۰</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-12 px-6 text-center border-t border-white/10">
-        <p class="text-gray-500 text-sm mb-4 italic">ساختن ردپایی دیجیتال از اعتبار مهندسی که با هیچ مدرک کاغذی قابل معاوضه نیست.</p>
-        <div class="flex justify-center gap-6 text-xl text-gray-400">
-            <a href="#" class="hover:text-white transition"><i class="fab fa-github"></i></a>
-            <a href="#" class="hover:text-white transition"><i class="fab fa-linkedin"></i></a>
-        </div>
+    <footer class="py-10 text-center text-gray-500 text-xs border-t border-white/5">
+        <p>Built for Engineers by <span class="text-blue-400">DevLab Team</span> | 2024</p>
     </footer>
 
     <script>
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+        // ۱. افکت ماشین‌نویسی برای هدر
+        const text = "به سیستم‌عامل آموزشی DevLab خوش آمدید...";
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typewriter").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        window.onload = typeWriter;
+
+        // ۲. انیمیشن اسکرول (Reveal)
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
     </script>
 </body>
 </html>
